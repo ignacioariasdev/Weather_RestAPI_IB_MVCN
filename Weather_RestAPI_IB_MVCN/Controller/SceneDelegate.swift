@@ -11,6 +11,8 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
+    
+    let dataController = DataController(modelName: "weather")
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
@@ -18,6 +20,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let _ = (scene as? UIWindowScene) else { return }
+        
+        
+        dataController.load()
+        
+        let navigationController = window?.rootViewController as! UINavigationController
+        
+        let viewController = navigationController.topViewController as! ViewController
+        
+        viewController.dataController = dataController
+        
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
